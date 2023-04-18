@@ -1,11 +1,11 @@
-import api from "../utils/api";
+import axios from "axios";
 
 const userStore = (set) => ({
   user: null,
 
   fetchUser: async (userId) => {
     try {
-      const response = await api.get(`/users/${userId}`);
+      const response = await axios.get(`/users/${userId}`);
       set({ user: response.data });
     } catch (error) {
       console.error(error);
@@ -14,7 +14,7 @@ const userStore = (set) => ({
 
   updateUser: async (userId, userData) => {
     try {
-      const response = await api.put(`/users/${userId}`, userData);
+      const response = await axios.put(`/users/${userId}`, userData);
       set({ user: response.data });
     } catch (error) {
       console.error(error);

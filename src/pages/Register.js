@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useStore } from "../store";
+import { useStore } from "../src/store";
 
 function Register() {
   const [name, setName] = useState("");

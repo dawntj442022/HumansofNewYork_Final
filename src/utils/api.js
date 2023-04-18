@@ -1,55 +1,48 @@
-import {
-  createPost,
-  fetchCurrentUser,
-  fetchPosts,
-  loginUser,
-  registerUser,
-} from "../utils/api";
+import axios from "axios";
 
 export async function registerUser(userData) {
-  const response = await fetch("/api/register", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(userData),
-  });
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.message || "Unable to register user");
-  return data;
+  try {
+    const response = await axios.post("/api/register", userData);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Unable to register user");
+  }
 }
 
 export async function loginUser(userData) {
-  const response = await fetch("/api/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(userData),
-  });
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.message || "Unable to login");
-  return data;
+  try {
+    const response = await axios.post("/api/login", userData);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Unable to login");
+  }
 }
 
 export async function fetchCurrentUser() {
-  const response = await fetch("/api/user");
-  const data = await response.json();
-  if (!response.ok)
-    throw new Error(data.message || "Unable to fetch current user");
-  return data;
+  try {
+    const response = await axios.get("/api/user");
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Unable to fetch current user"
+    );
+  }
 }
 
 export async function fetchPosts() {
-  const response = await fetch("/api/posts");
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.message || "Unable to fetch posts");
-  return data;
+  try {
+    const response = await axios.get("/api/posts");
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Unable to fetch posts");
+  }
 }
 
 export async function createPost(postData) {
-  const response = await fetch("/api/posts", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(postData),
-  });
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.message || "Unable to create post");
-  return data;
+  try {
+    const response = await axios.post("/api/posts", postData);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Unable to create post");
+  }
 }

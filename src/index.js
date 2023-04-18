@@ -3,15 +3,15 @@ import ReactDOM from "react-dom/client";
 import "./App.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Provider } from "react-zustand";
+import { create } from "zustand";
 import userStore from "./store/userStore";
+
+const useUserStore = create(userStore);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={userStore}>
-      <App />
-    </Provider>
+    <App useUserStore={useUserStore} />
   </React.StrictMode>
 );
 
