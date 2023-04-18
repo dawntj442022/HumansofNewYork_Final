@@ -1,3 +1,11 @@
+import {
+  createPost,
+  fetchCurrentUser,
+  fetchPosts,
+  loginUser,
+  registerUser,
+} from "../utils/api";
+
 export async function registerUser(userData) {
   const response = await fetch("/api/register", {
     method: "POST",
