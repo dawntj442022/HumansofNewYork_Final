@@ -1,26 +1,9 @@
-import axios from "axios";
-import { useStore } from "../store/store";
+import create from "zustand";
 
-const userStore = (set) => ({
+const userStore = create((set) => ({
   user: null,
-
-  fetchUser: async (userId) => {
-    try {
-      const response = await axios.get(`/users/${userId}`);
-      set({ user: response.data });
-    } catch (error) {
-      console.error(error);
-    }
-  },
-
-  updateUser: async (userId, userData) => {
-    try {
-      const response = await axios.put(`/users/${userId}`, userData);
-      set({ user: response.data });
-    } catch (error) {
-      console.error(error);
-    }
-  },
-});
+  setUser: (newUser) => set(() => ({ user: newUser })),
+  clearUser: () => set(() => ({ user: null })),
+}));
 
 export default userStore;
