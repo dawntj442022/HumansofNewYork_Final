@@ -1,21 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./App.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { create } from "zustand";
-import userStore from "./store/userStore";
+const express = require("express");
+const router = express.Router();
 
-const useUserStore = create(userStore);
+// Import all route files
+const postsRouter = require("./posts");
+const usersRouter = require("./users");
+const authRouter = require("./server/routes/auth");
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <App useUserStore={useUserStore} />
-  </React.StrictMode>
-);
+// Route middleware
+router.use("/posts", postsRouter);
+router.use("/users", usersRouter);
+router.use("/auth", authRouter);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Default route
+router.get("/", (req, res) => {
+  res.send("API is running");
+});
+
+module.exports = router;
