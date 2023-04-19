@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useStore } from "../store/store";
 
 const userStore = (set) => ({
   user: null,

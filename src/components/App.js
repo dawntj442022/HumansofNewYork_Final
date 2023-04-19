@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
@@ -10,12 +10,12 @@ function App() {
   return (
     <div>
       <Navbar />
-      <Switch>
+      <Routes>
         <Route exact path="/" component={Dashboard} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route component={NotFound} />
-      </Switch>
+      </Routes>
     </div>
   );
 }
