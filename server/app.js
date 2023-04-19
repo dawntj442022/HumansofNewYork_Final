@@ -1,37 +1,42 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const connectDB = require("./utils/db");
 
 // Load environment variables
-dotenv.config();
+dotenv.config({ path: "./config.env" });
 
-// Create express app
+// Connect to database
+connectDB();
+
+// Initialize express app
 const app = express();
 
-// Middlewares
+// Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
-mongoose.connection.once("open", () =>
-  console.log("Connected to MongoDB database")
-);
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 // Routes
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/posts", require("./routes/postRoutes"));
-app.use("/api/users", require("./routes/userRoutes"));
+const authRoutes = require("./routes/authRoutes");
+const postRoutes = require("./routes/postRoutes");
+const userRoutes = require("./routes/userRoutes");
 
-// Error handler middleware
-app.use(require("./middleware/errorHandler"));
+app.use("/api/auth", authRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/users", userRoutes);
 
-// Start server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Error handling middleware
+const errorHandler = require("./middleware/errorHandler");
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+});
