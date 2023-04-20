@@ -1,9 +1,12 @@
-import create from "zustand";
+import { create } from "zustand";
 
-const userStore = create((set) => ({
+const useUserStore = create((set) => ({
   user: null,
   setUser: (newUser) => set(() => ({ user: newUser })),
   clearUser: () => set(() => ({ user: null })),
+  signup: (formData) => {
+    // your signup logic here
+  },
 }));
 
-export default userStore;
+export { useUserStore };

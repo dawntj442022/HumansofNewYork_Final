@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const connectDB = require("./utils/db");
+const connectDB = require("../config/database");
 
 // Load environment variables
 dotenv.config({ path: "./config.env" });

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { signup } from "../services/auth";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../services/auth";
 
 const SignupForm = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,9 +27,8 @@ const SignupForm = () => {
       return;
     }
     try {
-      const { token } = await signup(formData);
-      localStorage.setItem("token", token);
-      history.push("/");
+      await useAuthStore.getState().login(formData);
+      navigate("/");
     } catch (error) {
       setError("Failed to sign up. Please try again.");
     }

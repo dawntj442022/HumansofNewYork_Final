@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/authStore";
 
 function LoginPage() {
@@ -8,7 +8,7 @@ function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { login } = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
@@ -21,7 +21,7 @@ function LoginPage() {
 
     try {
       await login(email, password);
-      history.push("/");
+      navigate("/");
     } catch (error) {
       setErrorMessage(error.message);
     }

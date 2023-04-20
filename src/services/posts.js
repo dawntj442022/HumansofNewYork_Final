@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 const usePostStore = create((set, get) => ({
   posts: [],
@@ -33,4 +33,4 @@ const usePostStore = create((set, get) => ({
   },
 }));
 
-export default usePostStore;
+export { usePostStore }; // exporting named function

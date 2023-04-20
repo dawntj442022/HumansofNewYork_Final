@@ -1,29 +1,28 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useStore } from "../store";
-import { fetchUserPosts } from "../services/posts";
+import { useUserPostStore } from "../store/userPostStore";
 
 const MyPosts = () => {
-  const user = useStore((state) => state.user);
-  const userPosts = useStore((state) => state.userPosts);
-  const setUserPosts = useStore((state) => state.setUserPosts);
+  const { userPosts, fetchUserPosts } = useUserPostStore();
 
   useEffect(() => {
-    fetchUserPosts(user.id).then((data) => {
-      setUserPosts(data);
-    });
-  }, [user.id, setUserPosts]);
+    fetchUserPosts();
+  }, [fetchUserPosts]);
 
   return (
     <div>
       <h1>My Posts</h1>
-      <ul>
-        {userPosts.map((post) => (
-          <li key={post.id}>
-            <Link to={`/post/${post.id}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ul>
+      {userPosts.length > 0 ? (
+        <ul>
+          {userPosts.map((post) => (
+            <li key={post.id}>
+              <Link to={`/posts/${post.id}`}>{post.title}</Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>You haven't posted anything yet!</div>
+      )}
     </div>
   );
 };

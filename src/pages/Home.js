@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useStore } from "../store";
-import { fetchPosts } from "../services/posts";
+import { useUserPostStore } from "../store/userPostStore";
+import { usePostStore } from "../services/posts"; // importing named function
 
 const Home = () => {
-  const posts = useStore((state) => state.posts);
-  const setPosts = useStore((state) => state.setPosts);
+  const posts = useUserPostStore((state) => state.posts);
+  const setPosts = useUserPostStore((state) => state.setPosts);
+
+  const fetchPosts = usePostStore((state) => state.fetchPosts); // getting fetchPosts function
 
   useEffect(() => {
     fetchPosts().then((data) => {
       setPosts(data);
     });
-  }, [setPosts]);
+  }, [fetchPosts, setPosts]);
 
   return (
     <div>

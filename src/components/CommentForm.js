@@ -1,23 +1,30 @@
-import React, { useState } from "react";
-import { useStore } from "../store/postStore";
+import { useState } from "react";
+import { usePostStore } from "../store/postStore";
 
 const CommentForm = ({ postId }) => {
-  const [comment, setComment] = useState("");
-  const { addComment } = useStore((state) => state.actions);
+  const [commentText, setCommentText] = useState("");
+  const { addComment } = usePostStore();
 
-  const handleSubmit = (event) => {
+  const handleCommentSubmit = (event) => {
     event.preventDefault();
-    addComment(postId, comment);
-    setComment("");
+    if (commentText.trim() !== "") {
+      addComment(postId, commentText);
+      setCommentText("");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea
-        value={comment}
-        onChange={(event) => setComment(event.target.value)}
-        placeholder="Leave a comment"
-      />
+    <form onSubmit={handleCommentSubmit}>
+      <div>
+        <label htmlFor="comment-text">Comment:</label>
+        <br />
+        <textarea
+          id="comment-text"
+          value={commentText}
+          onChange={(event) => setCommentText(event.target.value)}
+        />
+      </div>
+      <br />
       <button type="submit">Submit</button>
     </form>
   );

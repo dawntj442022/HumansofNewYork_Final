@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 const postStore = create((set, get) => ({
   posts: [],
@@ -23,6 +23,15 @@ const postStore = create((set, get) => ({
       console.error(error);
     }
   },
+}));
+
+export const usePostStore = postStore((state) => ({
+  posts: state.posts,
+  setPosts: state.setPosts,
+  addPost: state.addPost,
+  deletePost: state.deletePost,
+  updatePost: state.updatePost,
+  getPosts: state.getPosts,
 }));
 
 export default postStore;

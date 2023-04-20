@@ -1,19 +1,26 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import MyPosts from "./pages/MyPosts";
 import SinglePostPage from "./pages/SinglePostPage";
-import { useAuthStore } from "./store/authStore";
+import { initializeAuth } from "./store/authStore";
+import React from "react";
+import { useAuthStore } from "./store/useAuthStore";
 
 function App() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
+  // Call initializeAuth when the component first mounts
+  React.useEffect(() => {
+    initializeAuth();
+  }, []);
+
   return (
     <Router>
       <Navbar />
-      <Switch>
+      <Routes>
         <Route exact path="/">
           <Home />
         </Route>
@@ -29,7 +36,7 @@ function App() {
         <Route path="/posts/:id">
           <SinglePostPage />
         </Route>
-      </Switch>
+      </Routes>
     </Router>
   );
 }
