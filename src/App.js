@@ -7,12 +7,11 @@ import MyPosts from "./pages/MyPosts";
 import SinglePostPage from "./pages/SinglePostPage";
 import { initializeAuth } from "./store/authStore";
 import React from "react";
-import { useAuthStore } from "./store/useAuthStore";
+import useAuthStore from "./store/useAuthStore";
 
 function App() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-  // Call initializeAuth when the component first mounts
   React.useEffect(() => {
     initializeAuth();
   }, []);

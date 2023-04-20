@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUserPostStore } from "../store/userPostStore";
-import { usePostStore } from "../services/posts"; // importing named function
+import usePostStore from "../services/posts";
 
 const Home = () => {
   const posts = useUserPostStore((state) => state.posts);
   const setPosts = useUserPostStore((state) => state.setPosts);
 
-  const fetchPosts = usePostStore((state) => state.fetchPosts); // getting fetchPosts function
+  const fetchPosts = usePostStore((state) => state.fetchPosts);
 
   useEffect(() => {
     fetchPosts().then((data) => {

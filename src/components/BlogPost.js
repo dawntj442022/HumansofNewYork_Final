@@ -1,9 +1,9 @@
 import React from "react";
-import { useStore } from "../store/postStore";
+import { usePostStore } from "../store/postStore";
 
 const BlogPost = ({ post }) => {
   const { title, body, author, imageUrl, thumbsUp, thumbsDown } = post;
-  const { upvote, downvote } = useStore((state) => state.actions);
+  const { upvote, downvote } = usePostStore((state) => state.actions);
 
   const handleUpvote = () => {
     upvote(post);

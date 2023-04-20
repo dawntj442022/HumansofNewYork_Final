@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("config");
+const connectDB = require("../database");
 
 const authMiddleware = (req, res, next) => {
   // Get token from header
@@ -12,7 +12,7 @@ const authMiddleware = (req, res, next) => {
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, config.get("jwtSecret"));
+    const decoded = jwt.verify(token, connectDB.get("jwtSecret"));
 
     // Set user from payload
     req.user = decoded.user;

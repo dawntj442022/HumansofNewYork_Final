@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useStore } from "../store/authStore";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useStore((state) => state.actions);
-  const history = useHistory();
+  const history = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();

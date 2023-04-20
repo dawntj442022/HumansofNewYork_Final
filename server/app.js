@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const connectDB = require("../config/database");
+const connectDB = require("./database");
 
 // Load environment variables
 dotenv.config({ path: "./config.env" });
@@ -27,9 +27,9 @@ const authRoutes = require("./routes/authRoutes");
 const postRoutes = require("./routes/postRoutes");
 const userRoutes = require("./routes/userRoutes");
 
-app.use("/api/auth", authRoutes);
-app.use("/api/posts", postRoutes);
-app.use("/api/users", userRoutes);
+app.use("/auth", authRoutes);
+app.use("/posts", postRoutes);
+app.use("/users", userRoutes);
 
 // Error handling middleware
 const errorHandler = require("./middleware/errorHandler");

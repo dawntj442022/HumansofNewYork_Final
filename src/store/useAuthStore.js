@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const authStore = create((set) => ({
+const useAuthStore = create((set) => ({
   token: null,
   user: null,
 
@@ -16,21 +16,12 @@ const authStore = create((set) => ({
   isAuthenticated: false,
 }));
 
-export const useAuthStore = authStore((state) => ({
-  token: state.token,
-  user: state.user,
-  setToken: state.setToken,
-  setUser: state.setUser,
-  logout: state.logout,
-  isAuthenticated: state.isAuthenticated,
-}));
-
 export function initializeAuth() {
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
 
   if (token && user) {
-    authStore.setState((state) => ({
+    useAuthStore.setState((state) => ({
       ...state,
       token: token,
       user: user,
@@ -43,10 +34,12 @@ export function clearAuth() {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
 
-  authStore.setState((state) => ({
+  useAuthStore.setState((state) => ({
     ...state,
     token: null,
     user: null,
     isAuthenticated: false,
   }));
 }
+
+export default useAuthStore;
