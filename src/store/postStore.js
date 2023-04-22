@@ -25,13 +25,15 @@ const postStore = create((set, get) => ({
   },
 }));
 
-export const usePostStore = postStore((state) => ({
-  posts: state.posts,
-  setPosts: state.setPosts,
-  addPost: state.addPost,
-  deletePost: state.deletePost,
-  updatePost: state.updatePost,
-  getPosts: state.getPosts,
-}));
+export const usePostStore = () => {
+  return postStore((state) => ({
+    posts: state.posts,
+    setPosts: state.setPosts,
+    addPost: state.addPost,
+    deletePost: state.deletePost,
+    updatePost: state.updatePost,
+    getPosts: state.getPosts,
+  }));
+};
 
 export default postStore;

@@ -30,8 +30,8 @@
     "zustand": "^4.3.7"
   },
   "scripts": {
-    "server": "nodemon server/app.js",
-    "start": "node server/app.js",
+    "server": "nodemon server.js",
+    "start": "node server.js",
     "react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

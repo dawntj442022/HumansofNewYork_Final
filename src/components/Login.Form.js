@@ -6,13 +6,13 @@ const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useStore((state) => state.actions);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       await login({ username, password });
-      history.push("/");
+      navigate.push("/");
     } catch (error) {
       console.error(error);
     }

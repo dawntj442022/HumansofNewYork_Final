@@ -20,21 +20,20 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          {isAuthenticated ? <MyPosts /> : <LoginPage />}
-        </Route>
-        <Route path="/signup">
-          {isAuthenticated ? <MyPosts /> : <SignupPage />}
-        </Route>
-        <Route path="/my-posts">
-          {isAuthenticated ? <MyPosts /> : <LoginPage />}
-        </Route>
-        <Route path="/posts/:id">
-          <SinglePostPage />
-        </Route>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/login"
+          element={isAuthenticated ? <MyPosts /> : <LoginPage />}
+        />
+        <Route
+          path="/signup"
+          element={isAuthenticated ? <MyPosts /> : <SignupPage />}
+        />
+        <Route
+          path="/my-posts"
+          element={isAuthenticated ? <MyPosts /> : <LoginPage />}
+        />
+        <Route path="/posts/:id" element={<SinglePostPage />} />
       </Routes>
     </Router>
   );

@@ -18,13 +18,17 @@ const Home = () => {
   return (
     <div>
       <h1>Home</h1>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link to={`/post/${post.id}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ul>
+      {posts ? (
+        <ul>
+          {posts.map((post) => (
+            <li key={post.id}>
+              <Link to={`/post/${post.id}`}>{post.title}</Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Loading posts...</p>
+      )}
     </div>
   );
 };
